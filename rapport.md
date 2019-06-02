@@ -10,7 +10,7 @@ les trames de requêtes et réponses d'authentification sont les deux premières
 
 ![Auth](./img/Auth.PNG)
 
-on peut ensuite trouvé l'identité de l'utilisateur dans la trame de réponse du serveur.
+on peut ensuite trouver l'identité de l'utilisateur dans la trame de réponse du serveur.
 
 ![Identite](./img/identity.PNG)
 
@@ -19,15 +19,15 @@ Ensuite il y a la phase hello :
 ![Hello](./img/hello.PNG)
 
 De cette capture, on peut déjà voire la version de TLS, ici TLS 1.2.
-En allant ensuite inspecter le paquet Client Hello, on peut trouvé les suites cryptographiques proposé par le client ainsi que les nounces (champ Random) et les sessions ID
+En allant ensuite inspecter le paquet Client Hello, on peut trouver les suites cryptographiques proposés par le client ainsi que les nounces (champ Random) et les sessions ID
 
 ![Cipher](./img/cipher.PNG)
 
-Ensuite on peut avoir la suite utilisé dans la serveur hello.
+Ensuite on peut avoir la suite utilisée dans la serveur hello.
 
 ![Cipher](./img/cipher_serv.PNG)
 
-Après, il y à la transmission des certificats. On peut aussi trouvé cette information dans les trames Server Hello :
+Après, il y à la transmission des certificats. On peut aussi trouver cette information dans les trames Server Hello :
 
 ![Certif](./img/certif_serv.PNG)
 
