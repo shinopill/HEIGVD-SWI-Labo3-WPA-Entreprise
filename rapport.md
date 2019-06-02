@@ -18,16 +18,16 @@ Ensuite il y a la phase hello :
 
 ![Hello](./img/hello.PNG)
 
-De cette capture, on peut déjà voire la version de TLS, ici TLS 1.2.
-En allant ensuite inspecter le paquet Client Hello, on peut trouver les suites cryptographiques proposés par le client ainsi que les nounces (champ Random) et les sessions ID
+De cette capture, on peut déjà voir la version de TLS, ici TLS 1.2.
+En allant ensuite inspecter le paquet Client Hello, on peut trouver les suites cryptographiques proposés par le client ainsi que les nonces (champ Random) et les sessions ID
 
 ![Cipher](./img/cipher.PNG)
 
-Ensuite on peut avoir la suite utilisée dans la serveur hello.
+Ensuite on peut avoir la suite utilisée dans le server hello.
 
 ![Cipher](./img/cipher_serv.PNG)
 
-Après, il y à la transmission des certificats. On peut aussi trouver cette information dans les trames Server Hello :
+Après, il y a la transmission des certificats. On peut aussi trouver cette information dans les trames Server Hello :
 
 ![Certif](./img/certif_serv.PNG)
 
@@ -39,7 +39,7 @@ Après, il y a l'échange de la clé WPA comme la montre la caputre suivante.
 
 ![WPA](./img/data.PNG)
 
-Pour finir il y a une phase de 4 way handshake, mais malheureusement, elle n'était pas présente dans la caputre fournie. Cette partie se trouve donc après avoir reçu le trame success de la part du serveur.
+Pour finir il y a une phase de 4 way handshake, mais malheureusement, elle n'était pas présente dans la capture fournie. Cette partie se trouve donc après avoir reçu le trame success de la part du serveur.
 
 ### Répondez aux questions suivantes :
 
@@ -60,11 +60,12 @@ Pour finir il y a une phase de 4 way handshake, mais malheureusement, elle n'ét
 > - Le serveur envoie-t-il un certificat au client ? Pourquoi oui ou non ?
 >
 > **_Réponse:_**
->  Oui le serveu envoie toujours son certificat, cette partie etant dans protocole EAP-PEAP
+> Oui le serveur envoie toujours son certificat, cette partie étant dans le protocole EAP-PEAP
+>
 > - b.	Le client envoie-t-il un certificat au serveur ? Pourquoi oui ou non ?
 >
 > **_Réponse:_**
-> Le client n'envoie pas son certificat car la trame TLS certificat request de la part du serveur n'est pas incule dans EAP-PEAP
+> Le client n'envoie pas son certificat car la trame TLS certificat request de la part du serveur n'est pas inclue dans EAP-PEAP
 
 ---
 
