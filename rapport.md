@@ -8,36 +8,36 @@ Analyse de la capture
 
 les trames de requêtes et réponses d'authentification sont les deux premières de la capture.
 
-![Auth](./img/Auth.png)
+![Auth](./img/Auth.PNG)
 
 on peut ensuite trouvé l'identité de l'utilisateur dans la trame de réponse du serveur.
 
-![Identite](./img/identity.png)
+![Identite](./img/identity.PNG)
 
 Ensuite il y a la phase hello :
 
-![Hello](./img/hello.png)
+![Hello](./img/hello.PNG)
 
 De cette capture, on peut déjà voire la version de TLS, ici TLS 1.2.
 En allant ensuite inspecter le paquet Client Hello, on peut trouvé les suites cryptographiques proposé par le client ainsi que les nounces (champ Random) et les sessions ID
 
-![Cipher](./img/cipher.png)
+![Cipher](./img/cipher.PNG)
 
 Ensuite on peut avoir la suite utilisé dans la serveur hello.
 
-![Cipher](./img/cipher_serv.png)
+![Cipher](./img/cipher_serv.PNG)
 
 Après, il y à la transmission des certificats. On peut aussi trouvé cette information dans les trames Server Hello :
 
-![Certif](./img/certif_serv.png)
+![Certif](./img/certif_serv.PNG)
 
 Puis, il y a la phase de key exchange  
 
-![Keys](./img/key_exchange.png)
+![Keys](./img/key_exchange.PNG)
 
 Après, il y a l'échange de la clé WPA comme la montre la caputre suivante.
 
-![WPA](./img/data.png)
+![WPA](./img/data.PNG)
 
 Pour finir il y a une phase de 4 way handshake, mais malheureusement, elle n'était pas présente dans la caputre fournie. Cette partie se trouve donc après avoir reçu le trame success de la part du serveur.
 
