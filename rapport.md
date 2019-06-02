@@ -4,51 +4,67 @@
 
 ### 1. Capture et analyse d’une authentification WPA Entreprise
 
-Dans cette première partie, vous allez capturer une connexion WPA Entreprise au réseau de l’école avec Wireshark et fournir des captures d’écran indiquant dans chaque capture les données demandées.
+Analyse de la capture
 
-- Identifier le canal utilisé par l’AP dont la puissance est la plus élevée. Vous pouvez faire ceci avec ```airodump-ng```, par exemple
-- Lancer une capture avec Wireshark
-- Etablir une connexion depuis un poste de travail (PC), un smartphone ou une tablette. Attention, il est important que la connexion se fasse à 2.4 GHz pour pouvoir sniffer avec les interfaces Alfa.
-- Comparer votre capture au processus d’authentification expliqué en classe (n’oubliez pas les captures !). En particulier, identifier les étapes suivantes :
-	- Requête et réponse d’authentification système ouvert
- 	- Requête et réponse d’association
-	- Sélection de la méthode d’authentification
-	- Phase d’initiation. Arrivez-vous à voir l’identité du client ?
-	- Phase hello :
-		- Version TLS
-		- Suites cryptographiques et méthodes de compression proposées par le client et acceptées par l’AP
-		- Nonces
-		- Session ID
-	- Phase de transmission de certificats
-	 	- Certificat serveur
-		- Change cipher spec
-	- Authentification interne et transmission de la clé WPA (échange chiffré, vu comme « Application data »)
-	- 4-way hadshake
+les trames de requêtes et réponses d'authentification sont les deux premières de la capture.
+
+![Auth](./img/Auth.png)
+
+on peut ensuite trouvé l'identité de l'utilisateur dans la trame de réponse du serveur.
+
+![Identite](./img/identity.png)
+
+Ensuite il y a la phase hello :
+
+![Hello](./img/hello.png)
+
+De cette capture, on peut déjà voire la version de TLS, ici TLS 1.2.
+En allant ensuite inspecter le paquet Client Hello, on peut trouvé les suites cryptographiques proposé par le client ainsi que les nounces (champ Random) et les sessions ID
+
+![Cipher](./img/cipher.png)
+
+Ensuite on peut avoir la suite utilisé dans la serveur hello.
+
+![Cipher](./img/cipher_serv.png)
+
+Après, il y à la transmission des certificats. On peut aussi trouvé cette information dans les trames Server Hello :
+
+![Certif](./img/certif_serv.png)
+
+Puis, il y a la phase de key exchange  
+
+![Keys](./img/key_exchange.png)
+
+Après, il y a l'échange de la clé WPA comme la montre la caputre suivante.
+
+![WPA](./img/data.png)
+
+Pour finir il y a une phase de 4 way handshake, mais malheureusement, elle n'était pas présente dans la caputre fournie. Cette partie se trouve donc après avoir reçu le trame success de la part du serveur.
 
 ### Répondez aux questions suivantes :
 
 > **_Question :_** Quelle ou quelles méthode(s) d’authentification est/sont proposé(s) au client ?
-> 
-> **_Réponse :_** 
+>
+> **_Réponse :_**
+ Daas la capture de Request, Protected EAP, nous montre que le seul type proposé est EAP-PEAP
 
 ---
 
 > **_Question:_** Quelle méthode d’authentification est utilisée ?
-> 
-> **_Réponse:_** 
-
+>
+> **_Réponse:_** EAP-PEAP
 ---
 
 > **_Question:_** Lors de l’échange de certificats entre le serveur d’authentification et le client :
-> 
+>
 > - Le serveur envoie-t-il un certificat au client ? Pourquoi oui ou non ?
-> 
+>
 > **_Réponse:_**
-> 
+>  Oui le serveu envoie toujours son certificat, cette partie etant dans protocole EAP-PEAP
 > - b.	Le client envoie-t-il un certificat au serveur ? Pourquoi oui ou non ?
-> 
+>
 > **_Réponse:_**
-> 
+> Le client n'envoie pas son certificat car la trame TLS certificat request de la part du serveur n'est pas incule dans EAP-PEAP
 
 ---
 
@@ -65,20 +81,20 @@ Au final, on retrouve le mot de passe utilisé lors de l'authentification comme 
 ![HashCrack](C:\Users\olivi\Desktop\HEIGVD-SWI-Labo3-WPA-Entreprise\img\HashCrack.PNG)
 
 > **_Question :_** Quelles modifications sont nécessaires dans la configuration de hostapd-wpe pour cette attaque ?
-> 
+>
 > **_Réponse :_** Les changements qui ont été apporté aux fichiers de configuration sont le nom du SSID et le nom de l'interface, tout le reste a été laissé tel quel (par défaut la configuration utilise le mode 2.4Ghz).
 
 ---
 
 > **_Question:_** Quel type de hash doit-on indiquer à john pour craquer le handshake ?
-> 
+>
 > **_Réponse:_** Nous avons utilisé hashcat pour cracker le hash. Le type de hash à indiquer est NetNTLMv1, correspondant aux code 5500.
 
 ---
 
 > **_Question:_** 6.	Quelles méthodes d’authentification sont supportées par hostapd-wpe ?
 >
-> **_Réponse:_** D'après la documentation (https://tools.kali.org/wireless-attacks/hostapd-wpe), les methodes d'authentifications supportées sont : 
+> **_Réponse:_** D'après la documentation (https://tools.kali.org/wireless-attacks/hostapd-wpe), les methodes d'authentifications supportées sont :
 >
 > - EAP-FAST/MSCHAPv2 (Phase 0)
 > - PEAP/MSCHAPv2
