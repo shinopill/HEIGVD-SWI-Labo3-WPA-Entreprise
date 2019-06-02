@@ -46,7 +46,7 @@ Pour finir il y a une phase de 4 way handshake, mais malheureusement, elle n'ét
 > **_Question :_** Quelle ou quelles méthode(s) d’authentification est/sont proposé(s) au client ?
 >
 > **_Réponse :_**
- Daas la capture de Request, Protected EAP, nous montre que le seul type proposé est EAP-PEAP
+ Dans la trame Request, Protected EAP (3ème trame da la capture), on peut voire que les type proposé sont EAP-PEAP et EAP-TLS
 
 ---
 
